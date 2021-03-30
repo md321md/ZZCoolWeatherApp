@@ -1,5 +1,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    app:ignore="NamespaceTypo">
     <data>
         <import type="android.view.View"/>
         <variable name="viewModel" type="com.zz.mycoolweatherapp.ui.weather.WeatherViewModel" />
@@ -19,32 +21,54 @@
             bind:loadBingPic="@{viewModel.bingPicUrl}"
             />
 
-
-
-
         <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawerLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.core.widget.NestedScrollView
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+
+                android:id="@+id/coordinator">
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:fitsSystemWindows="true">
+                    app:elevation="0dp">
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                        android:id="@+id/toolbarLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fitsSystemWindows="true"
+                        app:layout_scrollFlags="scroll|enterAlways"
+                        >
 
-                    <include layout="@layout/title" bind:weather= "@{viewModel.weather}"/>
-                    <include layout="@layout/now" bind:weather= "@{viewModel.weather}"/>
-                    <include layout="@layout/forecast" bind:weather= "@{viewModel.weather}"/>
-                    <include layout="@layout/aqi" bind:weather= "@{viewModel.weather}"/>
-                    <include layout="@layout/suggestion" bind:weather= "@{viewModel.weather}"/>
 
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
 
+
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
+                </com.google.android.material.appbar.AppBarLayout>
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        >
+
+                        <include layout="@layout/title" bind:weather= "@{viewModel.weather}"/>
+                        <include layout="@layout/now" bind:weather= "@{viewModel.weather}"/>
+                        <include layout="@layout/forecast" bind:weather= "@{viewModel.weather}"/>
+                        <include layout="@layout/aqi" bind:weather= "@{viewModel.weather}"/>
+                        <include layout="@layout/suggestion" bind:weather= "@{viewModel.weather}"/>
+
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
             <fragment
                 android:id="@+id/chooseAreaFragment"

@@ -71,12 +71,10 @@ class WeatherActivity : AppCompatActivity() {
             }
         })
 
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.clearWeatherCached("weather")
+        close.setOnClickListener {
+            viewModel.clearWeatherCached("weather")
+            finish()
+        }
     }
 
 }

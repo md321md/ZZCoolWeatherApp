@@ -102,6 +102,7 @@ class ChooseAreaFragment : Fragment() {
         observer()
     }
 
+
     @SuppressLint("FragmentLiveDataObserve")
     private fun observer() {
 

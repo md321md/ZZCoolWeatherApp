@@ -20,8 +20,9 @@ class MainActivity : AppCompatActivity() {
 
         var viewModel = ViewModelProvider(this, InjectorUtil.getMainModelFactory()).get(MainViewModel::class.java)
 
+
         if(viewModel.getWeatherCached()){
-            startActivityForResult(Intent(this,WeatherActivity::class.java),1001)
+            startActivity(Intent(this,WeatherActivity::class.java))
             // 跳转weather详情页
         }else{
             // 静态引用fragment
@@ -30,8 +31,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        supportFragmentManager.beginTransaction().replace(R.id.container, ChooseAreaFragment()).commit()
+    override fun onRestart() {
+        super.onRestart()
+        // 静态引用fragment
+        supportFragmentManager.beginTransaction().replace(R.id.container, ChooseAreaFragment()).commitAllowingStateLoss()
+
     }
+
 }
