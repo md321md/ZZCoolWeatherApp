@@ -1,0 +1,59 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable name="viewModel" type="com.zz.mycoolweatherapp.ui.weather.WeatherViewModel" />
+        <variable name="resId" type="Integer" />
+        <variable name="init" type="Boolean" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/bingPicImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            bind:loadBingPic="@{viewModel.bingPicUrl}"
+            />
+
+
+
+
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:fitsSystemWindows="true">
+
+                    <include layout="@layout/title" bind:weather= "@{viewModel.weather}"/>
+                    <include layout="@layout/now" bind:weather= "@{viewModel.weather}"/>
+                    <include layout="@layout/forecast" bind:weather= "@{viewModel.weather}"/>
+                    <include layout="@layout/aqi" bind:weather= "@{viewModel.weather}"/>
+                    <include layout="@layout/suggestion" bind:weather= "@{viewModel.weather}"/>
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+            <fragment
+                android:id="@+id/chooseAreaFragment"
+                android:name="com.zz.mycoolweatherapp.ui.area.ChooseAreaFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"/>
+        </androidx.drawerlayout.widget.DrawerLayout>
+
+
+    </FrameLayout>
+</layout>
